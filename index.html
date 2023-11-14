@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>NBA Predictions</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <h1>NBA Predictions</h1>
+    <form action="/predictions" method="post">
+        <label for="team1">Team 1:</label>
+        <select name="team1" id="team1">
+            {% for team in team_list %}
+                <option value="{{ team }}">{{ team }}</option>
+            {% endfor %}
+        </select>
+
+        <label for="team2">Team 2:</label>
+        <select name="team2" id="team2">
+            {% for team in team_list %}
+                <option value="{{ team }}">{{ team }}</option>
+            {% endfor %}
+        </select>
+
+        <input type="submit" value="View Predictions">
+    </form>
+</body>
+</html>
