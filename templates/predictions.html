@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Predictions</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+    <style>
+        .content {
+            display: none;
+        }
+
+        .content ul {
+            list-style-type: none; /* Remove bullet points */
+            padding: 0; /* Remove default padding */
+            text-align: center; /* Center-align the data */
+        }
+
+        .content li {
+            padding: 0;
+            margin: 0;
+        }
+
+        h1 {
+            text-align: center; /* Center-align the h1 element */
+        }
+    </style>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <h1>Matchup Predictions</h1>
+    
+    <div class="container">
+        <div class="column">
+            <h2>{{ team_1 }}</h2>
+            <ul class="collapsible-list">
+                {% for player in df_team_1_player_projections.iterrows() %}
+                    <li>
+                        <button class="collapsible">{{ player[1]['Player'] }}</button>
+                        <div class="content">
+                            <ul>
+                                {% for col, value in player[1].items() %}
+                                    {% if not loop.first %} {# Skip the first column #}
+                                        <li><strong>{{ col }}:</strong> {{ value }}</li>
+                                    {% endif %}
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+
+        <div class="column">
+            <h2>{{ team_2 }}</h2>
+            <ul class="collapsible-list">
+                {% for player in df_team_2_player_projections.iterrows() %}
+                    <li>
+                        <button class="collapsible">{{ player[1]['Player'] }}</button>
+                        <div class="content">
+                            <ul>
+                                {% for col, value in player[1].items() %}
+                                    {% if not loop.first %} {# Skip the first column #}
+                                        <li><strong>{{ col }}:</strong> {{ value }}</li>
+                                    {% endif %}
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        $(document).ready(function(){
+            $(".collapsible").on("click", function(){
+                $(this).next(".content").slideToggle(200);
+            });
+        });
+    </script>
+</body>
+</html>
